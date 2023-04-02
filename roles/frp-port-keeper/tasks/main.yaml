@@ -1,0 +1,43 @@
+- name: Create destination directories
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - /etc/frp
+
+- name: Download frp-port-keeper archive
+  get_url:
+    url: "https://github.com/librepod/frp-port-keeper/releases/latest/download/frp-port-keeper_linux_amd64.tar.gz"
+    dest: "/tmp/frp-port-keeper_linux_amd64.tar.gz"
+
+- name: Extract frp-port-keeper archive
+  unarchive:
+    src: "/tmp/frp-port-keeper_linux_amd64.tar.gz"
+    dest: "/etc/frp"
+    remote_src: true
+  become: yes
+
+- name: Remove temporary archive
+  file:
+    path: "/tmp/frp-port-keeper_linux_amd64.tar.gz"
+    state: absent
+
+- name: Copy frp-port-keeper.service
+  copy:
+    src: "files/{{ item }}"
+    dest: "/etc/systemd/system/{{ item }}"
+  become: yes
+  loop:
+    - frp-port-keeper.service
+    - frp-port-keeper@.service
+
+- name: Reload systemd daemon
+  systemd:
+    daemon_reload: yes
+  become: yes
+
+- name: Make sure the frp-port-keeper service has started
+  ansible.builtin.systemd:
+    enabled: true
+    state: started
+    name: frp-port-keeper

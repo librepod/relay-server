@@ -1,0 +1,43 @@
+# vi: set ft=yaml :
+
+# Optional	(undefined)	frp release version.
+# Defaults to the latest version.
+frps_version: "0.48.0"
+# Optional	(undefined)	Used for frps config file name and frps service name.
+frps_config_name:
+# Optional	(undefined)	Local config file to be copied to remote.
+# If this is specified, the following options are not considered for frps config.
+frps_config_file:
+# Optional	0.0.0.0	Bind address for frps. Defaults to listen on all interfaces.
+frps_bind_addr: 0.0.0.0
+# Optional	7000	Bind port for frps.
+frps_bind_port: 7000
+# Optional	(undefined)	frp token used for authentication.
+frps_token:
+# Only allow frpc to bind ports you list, if you set nothing, there won't be any limit
+frps_allow_ports: 8000-50000
+
+# Optional  enable Admin UI
+enable_dashboard: false
+dashboard_port:
+dashboard_user:
+dashboard_pwd:
+
+enable_frp_port_keeper_plugin: true
+
+# v2ray vars
+update_v2ray_config_json: yes
+v2ray_version: v4.31.0
+v2ray_config:
+  log:
+    # access: /var/log/v2ray/access.log
+    # error: /var/log/v2ray/error.log
+    loglevel: warning
+  inbounds:
+  - port: 10086
+    protocol: vmess
+    settings:
+      clients:
+      - id: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+  outbounds:
+  - protocol: freedom
