@@ -1,6 +1,7 @@
 keys:
 - &admin_alex age1zdd3nu246uyx7zlfr07z52yssqp2dxp044ywsyn83nwgmudnnggq7yck7v
 - &ru_server age1ue2w2zq09n2kxxawvr4mlsz7xvzqn54gvltt7jh0ft8vrculkgvs4ekxej
+- &ru_server2 age1gr0wj3dhdh8u8r25rg3qs9cw7wnmejlucgf54aq4j7mk8h9tx54sxk3w60
 - &ee_server age1trmwmlh24mpj9l2sety2z9rdfepyc2xrz4wmlw95uujnjqhc643q3dj5jy
 - &kz_server age1zww9096rdnefygzene2z605pdzakvstkfvjudwqq9l5hxfjdkp9skvpy28
 creation_rules:
@@ -9,6 +10,7 @@ creation_rules:
   - age:
     - *admin_alex
     - *ru_server
+    - *ru_server2
     - *ee_server
     - *kz_server
 - path_regex: secrets/xray-server-config.json$
@@ -16,6 +18,7 @@ creation_rules:
   - age:
     - *admin_alex
     - *ru_server
+    - *ru_server2
     - *ee_server
     - *kz_server
 - path_regex: secrets/.*ovpn$
@@ -23,5 +26,6 @@ creation_rules:
   - age:
     - *admin_alex
     - *ru_server
+    - *ru_server2
     - *ee_server
     - *kz_server

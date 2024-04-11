@@ -14,18 +14,17 @@
       };
     };
 
-    # Establish connections to OVPN servers
-    # To view connection status use:
-    # systemctl status openvpn-ru-konsol.service
     services.openvpn.servers = {
-      konsol-pro-ru  = {
+      # To view connection status use: systemctl status openvpn-panda.service
+      panda  = {
         config = ''
           config ${config.sops.secrets."panda.ovpn".path}
         '';
         updateResolvConf = true;
         autoStart = false;
       };
-      tigersender  = {
+      # To view connection status use: systemctl status openvpn-tiger.service
+      tiger  = {
         config = ''
           config ${config.sops.secrets."tiger.ovpn".path}
         '';
