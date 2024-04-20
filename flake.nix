@@ -10,7 +10,7 @@
     nixosConfigurations.kz = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        # disko.nixosModules.disko
+        disko.nixosModules.disko
         sops-nix.nixosModules.sops
         ./hosts/kz
       ];
@@ -18,7 +18,7 @@
     nixosConfigurations.ru = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        # disko.nixosModules.disko
+        disko.nixosModules.disko
         sops-nix.nixosModules.sops
         ./hosts/ru
       ];
