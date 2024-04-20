@@ -2,8 +2,8 @@
 {
   imports = [
     ./configuration.nix
-    # ./disko.nix
     ../../modules/base
+    # ./disko.nix
     # ../../modules/frp-server
     # ../../modules/xray-server
     # ../../modules/openvpn-clients
