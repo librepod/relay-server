@@ -7,23 +7,21 @@
   inputs.deploy-rs.url = "github:serokell/deploy-rs";
 
   outputs = { self, nixpkgs, disko, sops-nix, deploy-rs, ... }: {
-    nixosConfigurations = {
-      kz = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          disko.nixosModules.disko
-          sops-nix.nixosModules.sops
-          ./hosts/kz
-        ];
-      };
-      ru = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          disko.nixosModules.disko
-          sops-nix.nixosModules.sops
-          ./hosts/ru
-        ];
-      };
+    nixosConfigurations.kz = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        # disko.nixosModules.disko
+        sops-nix.nixosModules.sops
+        ./hosts/kz
+      ];
+    };
+    nixosConfigurations.ru = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        # disko.nixosModules.disko
+        sops-nix.nixosModules.sops
+        ./hosts/ru
+      ];
     };
     deploy.nodes = {
       kz = {
