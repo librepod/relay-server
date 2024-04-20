@@ -2,7 +2,7 @@
 {
   imports = [
     ./configuration.nix
-    ./disko.nix
+    # ./disko.nix
     ../../modules/base
     # ../../modules/frp-server
     # ../../modules/xray-server
