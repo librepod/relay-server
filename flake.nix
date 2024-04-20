@@ -12,7 +12,7 @@
       modules = [
         disko.nixosModules.disko
         sops-nix.nixosModules.sops
-        ./hosts/kz
+        ./hosts/kz_pqhosting
       ];
     };
     nixosConfigurations.ru = nixpkgs.lib.nixosSystem {
