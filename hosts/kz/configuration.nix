@@ -11,9 +11,18 @@
 # }
 { modulesPath, lib, pkgs, ... }: {
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
+  boot.initrd.availableKernelModules = [
+    "ata_piix"
+    "uhci_hcd"
+    "virtio_pci"
+    "sr_mod"
+    "virtio_blk"
+  ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ ];
+  boot.extraModulePackages = [ ];
   boot.loader.grub = {
     # No need to set devices, disko will add all devices that have a EF02
     # partition to the list already
@@ -21,6 +30,13 @@
     efiSupport = true;
     efiInstallAsRemovable = true;
   };
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/c68681a2-51bd-4764-a2a6-5507f5531845";
+    fsType = "ext4";
+  };
+  swapDevices = [ ];
+
   services.openssh.enable = true;
 
   environment.systemPackages = map lib.lowPrio [
@@ -34,6 +50,7 @@
 
   networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
   networking = {
+    interfaces.ens3.useDHCP = false;
     interfaces.ens3.ipv4.addresses = [
       {
         address = "86.104.73.182";
@@ -45,6 +62,8 @@
       interface = "ens3";
     };
   };
+
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   system.stateVersion = "23.11";
 }
