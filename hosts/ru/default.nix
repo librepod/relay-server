@@ -1,6 +1,6 @@
 {
   imports = [
-    ../../modules/disko/cloud-ru.nix
+    ../../modules/disko
     ../../modules/base
     ../../modules/frp-server
     ../../modules/xray-server

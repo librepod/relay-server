@@ -5,6 +5,7 @@
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
 
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   nix.settings.experimental-features = [ "nix-command" "flakes" "repl-flake" ];
 
   # Based on this awesome tutorial: https://www.youtube.com/watch?v=G5f6GC7SnhU
