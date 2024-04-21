@@ -7,7 +7,7 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" "repl-flake" ];
 
-  # based on this awesome tutorial: https://www.youtube.com/watch?v=G5f6GC7SnhU
+  # Based on this awesome tutorial: https://www.youtube.com/watch?v=G5f6GC7SnhU
   sops = {
     defaultSopsFile = ../../secrets/secrets.yaml;
     defaultSopsFormat = "yaml";

@@ -1,18 +1,10 @@
-# { ... }: {
-#   imports = [
-#     ./hardware-configuration.nix
-#   ];
-#
-#   boot.tmp.cleanOnBoot = true;
-#   zramSwap.enable = true;
-#   networking.hostName = "ru-relay-librepod-org";
-#   networking.domain = "";
-#   system.stateVersion = "23.11";
-# }
-{ modulesPath, lib, pkgs, ... }: {
+{ modulesPath, lib, pkgs, ... }:
+
+{
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
   ];
+
   boot.initrd.availableKernelModules = [
     "ata_piix"
     "uhci_hcd"
@@ -35,17 +27,6 @@
   };
   swapDevices = [ ];
 
-  services.openssh.enable = true;
-
-  environment.systemPackages = map lib.lowPrio [
-    pkgs.curl
-    pkgs.gitMinimal
-  ];
-
-  users.users.root.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGis2Y/zwEDKbL4Os2tVs83hI1IXlL2hm7Ln0VJ/cI5q alex@carbon"
-  ];
-
   networking.nameservers = [ "1.1.1.1" "8.8.8.8" ];
   networking = {
     interfaces.ens3.useDHCP = false;
@@ -60,8 +41,4 @@
       interface = "ens3";
     };
   };
-
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-
-  system.stateVersion = "23.11";
 }
