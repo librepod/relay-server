@@ -7,14 +7,17 @@
   inputs.deploy-rs.url = "github:serokell/deploy-rs";
 
   outputs = { self, nixpkgs, disko, sops-nix, deploy-rs, ... }: {
+    # This server was provisioned manually. NixOS was installed manually, then
+    # tweaked a bit in order to be available via ssh, then deploy_rs did the
+    # trick.
     nixosConfigurations.kz = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
-        disko.nixosModules.disko
         sops-nix.nixosModules.sops
         ./hosts/kz_pqhosting
       ];
     };
+    # This server was installed by nixos-anywhere.
     nixosConfigurations.ru = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
@@ -25,8 +28,7 @@
     };
     deploy.nodes = {
       kz = {
-        # hostname = "kz.relay.librepod.org";
-        hostname = "86.104.73.182";
+        hostname = "kz2.relay.librepod.org";
         profiles.system = {
           user = "root";
           sshUser = "root";
