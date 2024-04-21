@@ -18,14 +18,14 @@
       ];
     };
     # This server was installed by nixos-anywhere.
-    nixosConfigurations.ru = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        disko.nixosModules.disko
-        sops-nix.nixosModules.sops
-        ./hosts/ru
-      ];
-    };
+    # nixosConfigurations.ru = nixpkgs.lib.nixosSystem {
+    #   system = "x86_64-linux";
+    #   modules = [
+    #     disko.nixosModules.disko
+    #     sops-nix.nixosModules.sops
+    #     ./hosts/ru
+    #   ];
+    # };
     deploy.nodes = {
       kz = {
         hostname = "kz2.relay.librepod.org";
@@ -35,14 +35,14 @@
           path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.kz;
         };
       };
-      ru = {
-        hostname = "ru.relay.librepod.org";
-        profiles.system = {
-          user = "root";
-          sshUser = "root";
-          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.ru;
-        };
-      };
+      # ru = {
+      #   hostname = "ru.relay.librepod.org";
+      #   profiles.system = {
+      #     user = "root";
+      #     sshUser = "root";
+      #     path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.ru;
+      #   };
+      # };
     };
     # This is highly advised, and will prevent many possible mistakes
     checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;

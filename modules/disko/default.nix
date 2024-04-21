@@ -1,5 +1,5 @@
-# Example to create a bios compatible gpt partition
 { lib, ... }:
+
 {
   disko.devices = {
     disk = {
@@ -9,9 +9,14 @@
         content = {
           type = "gpt";
           partitions = {
-            boot = {
-              size = "1G";
-              type = "EF02"; # for grub MBR
+            ESP = {
+              type = "EF00";
+              size = "500M";
+              content = {
+                type = "filesystem";
+                format = "vfat";
+                mountpoint = "/boot";
+              };
             };
             root = {
               size = "100%";
