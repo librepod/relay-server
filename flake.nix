@@ -10,39 +10,39 @@
     # This server was provisioned manually. NixOS was installed manually, then
     # tweaked a bit in order to be available via ssh, then deploy_rs did the
     # trick.
-    nixosConfigurations.kz = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        sops-nix.nixosModules.sops
-        ./hosts/kz_pqhosting
-      ];
-    };
-    # This server was installed by nixos-anywhere.
-    # nixosConfigurations.ru = nixpkgs.lib.nixosSystem {
+    # nixosConfigurations.kz = nixpkgs.lib.nixosSystem {
     #   system = "x86_64-linux";
     #   modules = [
-    #     disko.nixosModules.disko
     #     sops-nix.nixosModules.sops
-    #     ./hosts/ru
+    #     ./hosts/kz_pqhosting
     #   ];
     # };
+    # This server was installed by nixos-anywhere.
+    nixosConfigurations.ru = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        disko.nixosModules.disko
+        sops-nix.nixosModules.sops
+        ./hosts/ru
+      ];
+    };
     deploy.nodes = {
-      kz = {
-        hostname = "kz2.relay.librepod.org";
-        profiles.system = {
-          user = "root";
-          sshUser = "root";
-          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.kz;
-        };
-      };
-      # ru = {
-      #   hostname = "ru.relay.librepod.org";
+      # kz = {
+      #   hostname = "kz2.relay.librepod.org";
       #   profiles.system = {
       #     user = "root";
       #     sshUser = "root";
-      #     path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.ru;
+      #     path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.kz;
       #   };
       # };
+      ru = {
+        hostname = "ru.relay.librepod.org";
+        profiles.system = {
+          user = "root";
+          sshUser = "root";
+          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.ru;
+        };
+      };
     };
     # This is highly advised, and will prevent many possible mistakes
     checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
