@@ -39,7 +39,7 @@
         hostname = "ru.relay.librepod.org";
         profiles.system = {
           user = "root";
-          sshUser = "root";
+          sshUser = "nixos";
           path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.ru;
         };
       };
