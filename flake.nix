@@ -18,23 +18,33 @@
     #   ];
     # };
     # This server was installed by nixos-anywhere.
-    nixosConfigurations.ru = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        disko.nixosModules.disko
-        sops-nix.nixosModules.sops
-        ./hosts/ru
-      ];
+    nixosConfigurations = {
+      ru = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          disko.nixosModules.disko
+          sops-nix.nixosModules.sops
+          ./hosts/ru
+        ];
+      };
+      kz = {
+        system = "x86_64-linux";
+        modules = [
+          disko.nixosModules.disko
+          sops-nix.nixosModules.sops
+          ./hosts/kz
+        ];
+      };
     };
     deploy.nodes = {
-      # kz = {
-      #   hostname = "kz2.relay.librepod.org";
-      #   profiles.system = {
-      #     user = "root";
-      #     sshUser = "root";
-      #     path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.kz;
-      #   };
-      # };
+      kz = {
+        hostname = "185.233.3.70";
+        profiles.system = {
+          user = "root";
+          sshUser = "root";
+          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.kz;
+        };
+      };
       ru = {
         hostname = "ru.relay.librepod.org";
         profiles.system = {
