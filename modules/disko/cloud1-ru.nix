@@ -3,8 +3,8 @@
 {
   # See hybrid example:
   # https://github.com/nix-community/disko/blob/master/example/hybrid.nix
-  disko.devices.disk.vda = {
-    device = lib.mkDefault "/dev/sda";
+  disko.devices.disk.main = {
+    device = lib.mkDefault "/dev/vda";
     type = "disk";
     content = {
       type = "gpt";
