@@ -1,7 +1,7 @@
 keys:
 - &admin_alex age1zdd3nu246uyx7zlfr07z52yssqp2dxp044ywsyn83nwgmudnnggq7yck7v
 - &ru_server age142uruv9zjunvda0mmhaydmlc9d0xxfm39my7kk53u5evu5sudetsfe6zse
-- &kz_server age1zww9096rdnefygzene2z605pdzakvstkfvjudwqq9l5hxfjdkp9skvpy28
+- &kz_server age159r37qmngtr4878defjw5ey29lnzjmzkvq4jw6kszm3ghye9fesss4g83m
 creation_rules:
 - path_regex: secrets/[^/]+\.(yaml|env|ini)$
   key_groups:
