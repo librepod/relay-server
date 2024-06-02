@@ -13,13 +13,28 @@ ssh-copy-id root@<host>
 ```
 Make sure that you can connect to your VM without password using only SSH key.
 
+## Secrets
+
 ## Install NixOS using [nixos-anywhere](https://github.com/nix-community/nixos-anywhere) (preferably)
 
 Bear in mind that with some hosting providers it is not possible to install
 NixOS using this method, nevertheless its still worth to try.
 
+### cloud.ru installation (**ru** relay example)
+
+1. Spin up a new VM in cloud.ru. Make sure to give it at least 2Gb of RAM due
+   to nixos-anywhere requirements. 
+2. Make a keyscan of the newly created VM and update the __.sops.yaml__ file
+   accordingly: `nix-shell -p ssh-to-age --run 'ssh-keyscan <VM_PUBLIC_IP> | ssh-to-age'`
+3. Update all the secrets encryption keys like this: `sops updatekeys ./secrets.yaml`.
+   Do this for all the files in ./secrets folder.
+4. Install NixOS on the VM using nixos-anywhere:
 ```sh
-nix-shell -p ssh-to-age --run 'ssh-keyscan <your_host> | ssh-to-age'
+nix run github:nix-community/nixos-anywhere -- --flake .#ru <VM_USER>@<VM_PUBLIC_IP>
+5. Deploy nixos configuration to your newly server: `deploy ./#ru`
+```
+
+```sh
 nix run github:nix-community/nixos-anywhere -- --flake .#kz --vm-test
 nix run github:nix-community/nixos-anywhere -- --flake .#kz root@77.91.75.124
 ```
@@ -46,4 +61,4 @@ nix run github:nix-community/nixos-anywhere -- --flake .#kz root@77.91.75.124
     ```sh
     just morph-deploy <relay_name>
     ```
-nix-shell -p git --command "nix run github:librepod/relay-server/switch-to-nixos#kz --extra-experimental-features nix-command --extra-experimental-features flakes"
+
