@@ -1,8 +1,7 @@
 keys:
 - &admin_alex age1zdd3nu246uyx7zlfr07z52yssqp2dxp044ywsyn83nwgmudnnggq7yck7v
-- &ru_server age1gr0wj3dhdh8u8r25rg3qs9cw7wnmejlucgf54aq4j7mk8h9tx54sxk3w60
+- &ru_server age142uruv9zjunvda0mmhaydmlc9d0xxfm39my7kk53u5evu5sudetsfe6zse
 - &kz_server age1zww9096rdnefygzene2z605pdzakvstkfvjudwqq9l5hxfjdkp9skvpy28
-- &pqhosting_kz_server age1xw9pkxketa8a5uf6pv895qdq5uvn98qxqh56wlmea495km3g4fxs0dyv9k
 creation_rules:
 - path_regex: secrets/[^/]+\.(yaml|env|ini)$
   key_groups:
@@ -10,18 +9,14 @@ creation_rules:
     - *admin_alex
     - *ru_server
     - *kz_server
-    - *pqhosting_kz_server
-- path_regex: secrets/xray-server-config.json$
+- path: secrets/xray-server-config.json
   key_groups:
   - age:
     - *admin_alex
     - *ru_server
     - *kz_server
-    - *pqhosting_kz_server
 - path_regex: secrets/.*ovpn$
   key_groups:
   - age:
     - *admin_alex
     - *ru_server
-    - *kz_server
-    - *pqhosting_kz_server
