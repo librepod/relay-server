@@ -2,9 +2,14 @@
 {
   config = {
     sops.secrets = {
-      "tiger.ovpn" = {
+      "tiger-dev.ovpn" = {
         format = "binary";
-        sopsFile = ../../secrets/tiger.ovpn;
+        sopsFile = ../../secrets/tiger-dev.ovpn;
+        mode = "0777";
+      };
+      "tiger-prod.ovpn" = {
+        format = "binary";
+        sopsFile = ../../secrets/tiger-prod.ovpn;
         mode = "0777";
       };
       "panda.ovpn" = {
@@ -24,9 +29,16 @@
         autoStart = false;
       };
       # To view connection status use: systemctl status openvpn-tiger.service
-      tiger  = {
+      tiger-dev  = {
         config = ''
-          config ${config.sops.secrets."tiger.ovpn".path}
+          config ${config.sops.secrets."tiger-dev.ovpn".path}
+        '';
+        updateResolvConf = true;
+        autoStart = false;
+      };
+      tiger-prod  = {
+        config = ''
+          config ${config.sops.secrets."tiger-prod.ovpn".path}
         '';
         updateResolvConf = true;
         autoStart = false;
