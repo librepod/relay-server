@@ -3,8 +3,9 @@
 {
   # See hybrid example:
   # https://github.com/nix-community/disko/blob/master/example/hybrid.nix
-  disko.devices.disk.main = {
+  disko.devices.disk.root = {
     device = lib.mkDefault "/dev/vda";
+    name = "Root disk";
     type = "disk";
     content = {
       type = "gpt";
