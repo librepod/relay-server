@@ -1,13 +1,19 @@
-morph-deploy host:
-  morph deploy ./deploy.nix switch --on {{host}}
+@prepare-secret file:
+  cp ./secrets/raw.{{file}} ./secrets/{{file}}
+  just encrypt-binary ./secrets/{{file}}
 
-morph-build-dry-run host:
-  morph build ./deploy.nix --dry-run --on {{host}}
-  # earthly +morphBuildDryRun
+@prepare-secrets:
+  just prepare-secret tiger-dev.ovpn
+  just prepare-secret tiger-prod.ovpn
+  just prepare-secret panda.ovpn
+  just prepare-secret xray-server-config.json
 
 # Decrypt sops binary secret
 @decrypt-binary file:
   sops --decrypt --output-type binary --in-place {{file}}
-# Ecrypt sops binary secret
+# Encrypt sops binary secret
 @encrypt-binary file:
   sops --encrypt --input-type binary --in-place {{file}}
+
+deploy host: prepare-secrets
+  deploy ./#{{host}}
