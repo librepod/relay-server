@@ -3,9 +3,10 @@
   just encrypt-binary ./secrets/{{file}}
 
 @prepare-secrets:
+  just prepare-secret frps-config.toml
+  just prepare-secret panda.ovpn
   just prepare-secret tiger-dev.ovpn
   just prepare-secret tiger-prod.ovpn
-  just prepare-secret panda.ovpn
   just prepare-secret xray-server-config.json
 
 # Decrypt sops binary secret

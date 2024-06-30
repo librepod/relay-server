@@ -1,7 +1,20 @@
 { lib, config, pkgs, ... }:
 {
 
-  imports = [ ./frp-port-keeper.nix ];
+  # Disabling the default frp service in order to replace it with our own
+  # slightly modified implementation with ability to use config from sops secrets.
+  disabledModules = [ "services/networking/frp.nix" ];
+
+  sops.secrets."frps-config.toml" = {
+    format = "binary";
+    sopsFile = ../../secrets/frps-config.toml;
+    mode = "0777";
+  };
+
+  imports = [
+    ./custom-frp.nix # since we are storing sensitive values in config
+    ./frp-port-keeper.nix
+  ];
 
   # Allow some ports
   # TODO: Find a way to pass a range of ports as oppposed to integers
@@ -14,24 +27,7 @@
     enable = true;
     role = "server";
     settings = {
-      common = {
-        bind_addr = "0.0.0.0";
-        bind_port = 7000;
-        authentication_method = "token";
-        # FIXME: Find a way to pass the token via a secret
-        token = "Aloha, LibrePod!";
-        allow_ports = "8000-50000";
-        # Admin UI
-        dashboard_port = 7500;
-        dashboard_user = "librepod";
-        # FIXME: Find a way to pass the dashboard password via a secret
-        dashboard_pwd = "its-really-awesome9";
-      };
-      "plugin.frp-port-keeper" = {
-        addr = "127.0.0.1:8080";
-        path = "/port-registrations";
-        ops = "NewProxy";
-      };
+      # Config is passed via sops secret and pointed to in our custom frp module.
     };
   };
 }
