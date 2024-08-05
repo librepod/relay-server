@@ -17,6 +17,16 @@
         sopsFile = ../../secrets/panda.ovpn;
         mode = "0777";
       };
+      "chicken.ovpn" = {
+        format = "binary";
+        sopsFile = ../../secrets/chicken.ovpn;
+        mode = "0777";
+      };
+      "chicken-auth.txt" = {
+        format = "binary";
+        sopsFile = ../../secrets/chicken-auth.txt;
+        mode = "0777";
+      };
     };
 
     services.openvpn.servers = {
@@ -39,6 +49,14 @@
       tiger-prod  = {
         config = ''
           config ${config.sops.secrets."tiger-prod.ovpn".path}
+        '';
+        updateResolvConf = true;
+        autoStart = false;
+      };
+      chicken  = {
+        config = ''
+          config ${config.sops.secrets."chicken.ovpn".path}
+          auth-user-pass ${config.sops.secrets."chicken-auth.txt".path}
         '';
         updateResolvConf = true;
         autoStart = false;
