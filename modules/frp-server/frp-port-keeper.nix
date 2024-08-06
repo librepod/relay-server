@@ -1,6 +1,6 @@
 { config, ... }:
 {
-  # This is just a dummy frps.ini config file with known path. It's only
+  # This is just a dummy frps.ini config file with known path. Its only
   # purpose is to pass `allow_ports` param to frp-port-keeper plugin.
   environment.etc."frps.ini".text = ''
 [common]
