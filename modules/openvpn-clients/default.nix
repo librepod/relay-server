@@ -17,9 +17,9 @@
         sopsFile = ../../secrets/chicken.ovpn;
         mode = "0777";
       };
-      "chicken-auth.txt" = {
+      "chicken.ovpn.pass" = {
         format = "binary";
-        sopsFile = ../../secrets/chicken-auth.txt;
+        sopsFile = ../../secrets/chicken.ovpn.pass;
         mode = "0777";
       };
     };
@@ -43,7 +43,7 @@
       chicken  = {
         config = ''
           config ${config.sops.secrets."chicken.ovpn".path}
-          auth-user-pass ${config.sops.secrets."chicken-auth.txt".path}
+          auth-user-pass ${config.sops.secrets."chicken.ovpn.pass".path}
         '';
         updateResolvConf = true;
         autoStart = false;

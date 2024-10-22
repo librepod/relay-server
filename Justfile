@@ -3,8 +3,8 @@
   just encrypt-binary ./secrets/{{file}}
 
 @prepare-secrets:
-  just prepare-secret chicken-auth.txt
   just prepare-secret chicken.ovpn
+  just prepare-secret chicken.ovpn.pass
   just prepare-secret frps-config.toml
   just prepare-secret tiger-dev.ovpn
   just prepare-secret tiger-prod.ovpn
